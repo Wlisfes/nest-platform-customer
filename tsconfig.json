@@ -1,0 +1,32 @@
+{
+    "compilerOptions": {
+        "target": "ES2020",
+        "useDefineForClassFields": true,
+        "module": "ESNext",
+        "lib": ["ES2020", "DOM", "DOM.Iterable"],
+        "skipLibCheck": true,
+
+        /* Bundler mode */
+        "moduleResolution": "bundler",
+        "allowImportingTsExtensions": true,
+        "isolatedModules": true,
+        "moduleDetection": "force",
+        "noEmit": true,
+        "jsx": "preserve",
+        "jsxImportSource": "vue",
+
+        /* Linting */
+        "strict": true,
+        "noUnusedLocals": false /**import导入模板未使用会爆警告**/,
+        "noUnusedParameters": false /**声明变量未使用会爆警告**/,
+        "noFallthroughCasesInSwitch": true /**switch中必须要有break、return语句**/,
+        "useUnknownInCatchVariables": false /**catch变量设定未any类型**/,
+
+        "baseUrl": "." /**配置根路径**/,
+        "paths": {
+            "@/*": ["./src/*"] /**别名路径**/
+        }
+    },
+    "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"],
+    "references": [{ "path": "./tsconfig.node.json" }]
+}

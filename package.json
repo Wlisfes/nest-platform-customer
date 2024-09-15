@@ -1,0 +1,41 @@
+{
+    "name": "nest-platform-customer",
+    "private": true,
+    "version": "0.0.0",
+    "type": "module",
+    "scripts": {
+        "dev": "vite",
+        "build": "vue-tsc -b && vite build",
+        "preview": "vite preview"
+    },
+    "dependencies": {
+        "@vueuse/components": "^11.0.3",
+        "@vueuse/core": "^11.0.3",
+        "axios": "^1.7.7",
+        "class-validator": "^0.14.1",
+        "dayjs": "^1.11.13",
+        "js-cookie": "^3.0.5",
+        "naive-ui": "^2.39.0",
+        "pinia": "^2.2.2",
+        "pinia-plugin-persistedstate": "^3.2.3",
+        "vue": "^3.4.37",
+        "vue-router": "^4.4.3",
+        "vue3-keep-alive-component": "^1.0.19"
+    },
+    "devDependencies": {
+        "@iconify-json/ep": "^1.2.0",
+        "@types/node": "^22.5.1",
+        "@unocss/preset-rem-to-px": "^0.60.4",
+        "@vitejs/plugin-vue": "^5.1.2",
+        "@vitejs/plugin-vue-jsx": "^4.0.1",
+        "sass": "1.77.6",
+        "typescript": "^5.5.3",
+        "unocss": "^0.60.4",
+        "unplugin-auto-import": "^0.18.2",
+        "unplugin-icons": "^0.19.2",
+        "unplugin-vue-components": "^0.27.4",
+        "vite": "^5.4.1",
+        "vite-plugin-vue-devtools": "^7.3.9",
+        "vue-tsc": "^2.0.29"
+    }
+}
