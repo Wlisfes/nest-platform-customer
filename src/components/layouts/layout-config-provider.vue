@@ -2,7 +2,7 @@
 import { defineComponent } from 'vue'
 
 export default defineComponent({
-    name: 'LayoutProvider',
+    name: 'LayoutConfigProvider',
     setup(props, { slots }) {
         return () => (
             <n-config-provider abstract inline-theme-disabled>

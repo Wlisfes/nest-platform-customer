@@ -16,7 +16,7 @@ export enum APP_SKYLINE {
 }
 
 export type RouteOption = ReturnType<typeof useRoute>
-export type RouteSlotsOption = Omix<{ Component: Omix<DefineComponent>; route: RouteOption }>
+export type RouteComponentOption = Omix<{ Component: Omix<DefineComponent>; route: RouteOption }>
 
 export const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -120,17 +120,17 @@ export const router = createRouter({
                 },
                 {
                     path: '/sys',
-                    redirect: '/sys/logs',
+                    redirect: '/sys/auth',
                     name: LayoutSysContainer.name,
                     meta: { title: '综合设置', iframeName: APP_SKYLINE.Sys },
                     component: LayoutSysContainer,
                     children: [
-                        {
-                            path: '/sys/logs',
-                            name: 'SysLogs',
-                            meta: { title: '登录日志', iframeName: APP_SKYLINE.Sys },
-                            component: () => import('@/views/sys/logs/logs.vue')
-                        },
+                        // {
+                        //     path: '/sys/logs',
+                        //     name: 'SysLogs',
+                        //     meta: { title: '登录日志', iframeName: APP_SKYLINE.Sys },
+                        //     component: () => import('@/views/sys/logs/logs.vue')
+                        // },
                         {
                             path: '/sys/process',
                             redirect: '/sys/process/configer',

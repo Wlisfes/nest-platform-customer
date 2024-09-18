@@ -5,7 +5,7 @@ import { KeepAliveComponent } from 'vue3-keep-alive-component'
 import { useState } from '@/hooks/hook-state'
 import { useManager } from '@/hooks/hook-manager'
 import { useConfiger, useStore } from '@/store'
-import { APP_SKYLINE, RouteSlotsOption, router } from '@/router'
+import { APP_SKYLINE, RouteComponentOption, router } from '@/router'
 
 export default defineComponent({
     name: 'LayoutContainer',
@@ -32,7 +32,7 @@ export default defineComponent({
 
         return () => (
             <n-layout class="h-full" content-style={{ display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
-                <n-layout-header class="h-60 p-inline-20 flex items-center" bordered>
+                <n-layout-header class="h-50 p-inline-20 flex items-center" bordered>
                     <n-menu
                         mode="horizontal"
                         key-field="iframeName"
@@ -45,7 +45,7 @@ export default defineComponent({
                 </n-layout-header>
                 <RouterView
                     v-slots={{
-                        default: ({ Component, route }: RouteSlotsOption) => {
+                        default: ({ Component, route }: RouteComponentOption) => {
                             return <KeepAliveComponent exclude={['LayoutRefresh']} component={Component}></KeepAliveComponent>
                         }
                     }}

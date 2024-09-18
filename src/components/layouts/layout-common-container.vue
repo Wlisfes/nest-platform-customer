@@ -2,7 +2,7 @@
 import { defineComponent, createVNode, PropType } from 'vue'
 import { RouterView, RouterLink } from 'vue-router'
 import { KeepAliveComponent } from 'vue3-keep-alive-component'
-import { RouteSlotsOption } from '@/router'
+import { RouteComponentOption } from '@/router'
 import { useConfiger, useStore } from '@/store'
 
 export default defineComponent({
@@ -65,7 +65,7 @@ export default defineComponent({
                     >
                         <RouterView
                             v-slots={{
-                                default: ({ Component, route }: RouteSlotsOption) => {
+                                default: ({ Component, route }: RouteComponentOption) => {
                                     return (
                                         <KeepAliveComponent
                                             include={['LayoutRouter', ...include.value]}
