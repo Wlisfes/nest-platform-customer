@@ -5,10 +5,10 @@ export default defineComponent({
     name: 'App',
     setup() {
         return () => (
-            <layout-config-provider>
-                <layout-config-mount>
+            <layout-config-provider global-style>
+                <layout-config-component>
                     <router-view />
-                </layout-config-mount>
+                </layout-config-component>
             </layout-config-provider>
         )
     }
