@@ -128,7 +128,7 @@ export default defineComponent({
                         <n-form-item>
                             <n-button
                                 class="w-full"
-                                type="info"
+                                type="primary"
                                 focusable={false}
                                 disabled={state.loading}
                                 loading={state.loading}
