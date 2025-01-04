@@ -33,13 +33,7 @@ export default defineConfig(({ command, mode }: ConfigEnv): UserConfig => {
                 extensions: ['vue', 'tsx'],
                 include: [/\.vue$/, /\.vue\?vue/, /\.tsx$/, /\.tsx\?tsx/],
                 dirs: ['src/components'],
-                resolvers: [
-                    NaiveUiResolver(),
-                    IconsResolver({
-                        prefix: false,
-                        enabledCollections: ['local', 'ep']
-                    })
-                ]
+                resolvers: [NaiveUiResolver(), IconsResolver({ prefix: false, enabledCollections: ['local'] })]
             }),
             Icons({
                 scale: 1,
@@ -54,7 +48,14 @@ export default defineConfig(({ command, mode }: ConfigEnv): UserConfig => {
         server: {
             hmr: true,
             port: 4690,
-            host: '0.0.0.0'
+            host: '0.0.0.0',
+            proxy: {
+                [`/api`]: {
+                    target: `http://localhost:4070`,
+                    ws: true,
+                    changeOrigin: true
+                }
+            }
         }
     }
 })
