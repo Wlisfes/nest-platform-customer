@@ -53,7 +53,7 @@ export default defineConfig(({ command, mode }: ConfigEnv): UserConfig => {
         ],
         server: {
             hmr: true,
-            port: 4680,
+            port: 4690,
             host: '0.0.0.0'
         }
     }
