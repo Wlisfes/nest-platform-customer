@@ -9,5 +9,9 @@ export const useConfiger = defineStore('APP_STORE_CONFIGER', () => {
         collapsed: false
     })
 
-    return { ...toRefs(state), setState }
+    async function fetchThemeUpdate(theme: 'light' | 'dark') {
+        return await setState({ theme })
+    }
+
+    return { ...toRefs(state), setState, fetchThemeUpdate }
 })
