@@ -1,6 +1,7 @@
 import { computed, ComputedRef } from 'vue'
 import { useThemeVars, darkTheme, lightTheme, GlobalThemeOverrides, ThemeCommonVars } from 'naive-ui'
 import { useConfiger, useStore } from '@/store'
+import { router } from '@/router'
 
 export interface CustomThemeCommonVars extends Omix<ThemeCommonVars> {
     '--common-body-color': string
@@ -9,6 +10,10 @@ export interface CustomThemeCommonVars extends Omix<ThemeCommonVars> {
 export function useProvider() {
     const { theme, primaryColor } = useStore(useConfiger)
     const vars = useThemeVars() as ComputedRef<CustomThemeCommonVars>
+    /**菜单宽度**/
+    const checkWidth = computed(() => {
+        return router.currentRoute.value.meta.menu ?? true ? 240 : 0
+    })
 
     /**主题反转**/
     const inverted = computed(() => theme.value === 'dark')
@@ -57,5 +62,5 @@ export function useProvider() {
         Tree: { nodeHeight: '36px' }
     }))
 
-    return { theme, themeStyle, themeOverrides, vars, inverted }
+    return { checkWidth, theme, themeStyle, themeOverrides, vars, inverted }
 }
