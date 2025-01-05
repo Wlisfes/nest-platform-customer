@@ -2,14 +2,14 @@
 import { defineComponent, Fragment } from 'vue'
 import { useManager, useConfiger, useStore } from '@/store'
 import { useState } from '@/hooks/hook-state'
-import { useProvider } from '@/hooks/hook-provider'
+import { fetchDiscover } from '@/utils/utils-component'
 import * as utils from '@/utils/utils-common'
 
 export default defineComponent({
     name: 'LayoutConfigUser',
     setup(props, ctx) {
         const { theme, fetchThemeUpdate } = useStore(useConfiger)
-        const { avatar, uid, nickname, email, account } = useStore(useManager)
+        const { avatar, uid, nickname, email, account, fetchCommonBaseDiscover } = useStore(useManager)
         const { state, setState } = useState({ visible: false, delay: false })
 
         /**异步关闭用户信息popover组件**/
@@ -28,11 +28,6 @@ export default defineComponent({
                     return await setState({ visible: true })
                 }
             })
-        }
-
-        /**退出登录**/
-        async function fetchCompose() {
-            return await setState({ visible: false })
         }
 
         return () => (
@@ -104,7 +99,7 @@ export default defineComponent({
                             focusable={false}
                             secondary
                             render-icon={() => <n-icon size={20} component={<local-nest-exit />}></n-icon>}
-                            onClick={fetchCompose}
+                            onClick={fetchCommonBaseDiscover}
                         >
                             退出登录
                         </n-button>

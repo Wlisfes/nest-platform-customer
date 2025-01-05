@@ -6,6 +6,6 @@ import App from '@/App.vue'
 export function createBootstrap(props: Omix = {}) {
     const app = createApp(<App {...props} />)
     setupStore(app)
-    setupRouter(app, { interceptor: false })
+    setupRouter(app, { interceptor: true })
     return { app }
 }

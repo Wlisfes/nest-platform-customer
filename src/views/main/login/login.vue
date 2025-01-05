@@ -1,14 +1,20 @@
 <script lang="tsx">
 import { defineComponent, ref } from 'vue'
+import { useRouter } from 'vue-router'
+import { useManager, useStore } from '@/store'
 import { useForm } from '@/hooks/hook-form'
 import { fetchUinitialize } from '@/plugins/modules/fluctuate'
+import { CommonService } from '@/api/instance.service'
+import * as cookie from '@/utils/utils-cookie'
 import * as utils from '@/utils/utils-common'
 
 export default defineComponent({
     name: 'BaseAuthorize',
     setup(props, ctx) {
+        const router = useRouter()
         const element = ref<HTMLElement>()
         const codexRef = ref<Omix<{ fetchRefresh: Function }>>()
+        const { fetchCommonBaseResolver } = useStore(useManager)
         const { formRef, form, state, setState, fetchValidater } = useForm({
             callback: async () => await fetchUinitialize(element.value),
             option: { check: false },
@@ -31,22 +37,22 @@ export default defineComponent({
                         return await setState({ loading: false, disabled: false })
                     })
                 }
-                // try {
-                //     return await Service.httpCommonAuthorize({
-                //         code: form.value.code,
-                //         account: form.value.account,
-                //         password: window.btoa(encodeURIComponent(form.value.password))
-                //     }).then(async ({ data }) => {
-                //         return await setCompose(data).then(async () => {
-                //             await fetchCommonBaseResolver()
-                //             return router.push({ path: '/', replace: true })
-                //         })
-                //     })
-                // } catch (err) {
-                //     return await codexRef.value.fetchRefresh(300).then(() => {
-                //         return setState({ loading: false, disabled: false })
-                //     })
-                // }
+                try {
+                    return await CommonService.httpCommonTokenAuthorize({
+                        code: form.value.code,
+                        account: form.value.account,
+                        password: window.btoa(encodeURIComponent(form.value.password))
+                    }).then(async ({ data }) => {
+                        return await cookie.setCompose(data).then(async () => {
+                            await fetchCommonBaseResolver()
+                            return router.push({ path: '/', replace: true })
+                        })
+                    })
+                } catch (err) {
+                    return await codexRef.value!.fetchRefresh(300).then(() => {
+                        return setState({ loading: false, disabled: false })
+                    })
+                }
             })
         }
 

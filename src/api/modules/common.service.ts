@@ -1,7 +1,7 @@
 import { request } from '@/utils/utils-request'
 
 /**账号登录**/
-export function httpCommonAuthorize(data: Omix) {
+export function httpCommonTokenAuthorize(data: Omix) {
     return request({
         url: `/api/common/user/token/authorize`,
         method: 'POST',

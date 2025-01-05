@@ -1,5 +1,8 @@
 import { App } from 'vue'
 import { createRouter, createWebHistory, Router } from 'vue-router'
+import { isEmpty } from 'class-validator'
+import { useManager, useStore } from '@/store'
+import * as cookie from '@/utils/utils-cookie'
 
 /**路由列表配置**/
 export function fetchSetupRouter() {
@@ -42,9 +45,31 @@ export function setupRouter(app: App<Element>, option: Omix<{ interceptor: boole
 
 /**路由守卫**/
 export function setupGuardRouter(router: Router) {
+    const { uid, fetchCommonBaseResolver } = useStore(useManager)
     router.beforeEach(async (to, from, next) => {
         window.$loadingBar.start()
-        return next()
+        const token = cookie.getToken()
+        if (isEmpty(token)) {
+            if (to.meta.AUTH === 'AUTH_NONE') {
+                return next()
+            }
+            return await cookie.delCompose().then(() => {
+                return next({ replace: true, path: '/login' })
+            })
+        } else if (isEmpty(uid.value)) {
+            try {
+                await fetchCommonBaseResolver()
+            } catch (err) {
+                return await cookie.delCompose().then(() => {
+                    return next({ replace: true, path: '/login' })
+                })
+            }
+        }
+        if (to.meta.AUTH === 'AUTH_NONE') {
+            return next({ replace: true, path: '/' })
+        } else {
+            return next()
+        }
     })
 
     router.afterEach(async (to, from) => {

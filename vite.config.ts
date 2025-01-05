@@ -50,8 +50,8 @@ export default defineConfig(({ command, mode }: ConfigEnv): UserConfig => {
             port: 4690,
             host: '0.0.0.0',
             proxy: {
-                [`/api`]: {
-                    target: `http://localhost:4070`,
+                [`/api/common`]: {
+                    target: `http://localhost:3050`,
                     ws: true,
                     changeOrigin: true
                 }
