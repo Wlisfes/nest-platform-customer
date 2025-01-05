@@ -1,5 +1,6 @@
 <script lang="tsx">
 import { defineComponent, Fragment } from 'vue'
+import { useRouter } from 'vue-router'
 import { useManager, useConfiger, useStore } from '@/store'
 import { useState } from '@/hooks/hook-state'
 import { fetchDiscover } from '@/utils/utils-component'
@@ -8,6 +9,7 @@ import * as utils from '@/utils/utils-common'
 export default defineComponent({
     name: 'LayoutConfigUser',
     setup(props, ctx) {
+        const router = useRouter()
         const { theme, fetchThemeUpdate } = useStore(useConfiger)
         const { avatar, uid, nickname, email, account, fetchCommonBaseDiscover } = useStore(useManager)
         const { state, setState } = useState({ visible: false, delay: false })
@@ -27,6 +29,13 @@ export default defineComponent({
                 async handler() {
                     return await setState({ visible: true })
                 }
+            })
+        }
+
+        /**退出登录**/
+        async function fetchCloseAuthorize() {
+            return await setState({ visible: false }).then(async () => {
+                return await fetchCommonBaseDiscover()
             })
         }
 
@@ -99,7 +108,7 @@ export default defineComponent({
                             focusable={false}
                             secondary
                             render-icon={() => <n-icon size={20} component={<local-nest-exit />}></n-icon>}
-                            onClick={fetchCommonBaseDiscover}
+                            onClick={fetchCloseAuthorize}
                         >
                             退出登录
                         </n-button>

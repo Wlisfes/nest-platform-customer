@@ -99,7 +99,7 @@ export function fetchDiscover(
     > & {
         title?: string | VNode
         content?: string | VNode
-        icon?: 'BsMistake' | 'BsCorrect' | VNode
+        icon?: 'warning' | 'success' | VNode
         onAfterEnter?: (e: HTMLElement, x: DialogReactive) => any
         onClose?: (x: DialogReactive) => boolean | Promise<boolean>
         onNegativeClick?: (e: MouseEvent, x: DialogReactive) => boolean | Promise<boolean>
@@ -119,21 +119,30 @@ export function fetchDiscover(
                 if (isEmpty(option.title)) {
                     return undefined
                 } else if (typeof option.title === 'string') {
-                    return <done-title content={option.title} icon={option.icon} type={option.type ?? 'default'}></done-title>
+                    return (
+                        <common-react-title content={option.title} icon={option.icon} type={option.type ?? 'default'}></common-react-title>
+                    )
                 }
                 return (
-                    <done-title icon={option.icon} type={option.type ?? 'default'}>
-                        {option.title}
-                    </done-title>
+                    <common-react-title
+                        icon={option.icon}
+                        type={option.type ?? 'default'}
+                        v-slots={{ default: () => option.title }}
+                    ></common-react-title>
                 )
             },
             content: function render() {
                 if (isEmpty(option.content)) {
                     return undefined
                 } else if (typeof option.content === 'string') {
-                    return <done-content content={option.content} show-icon={Boolean(option.icon)}></done-content>
+                    return <common-react-content content={option.content} show-icon={Boolean(option.icon)}></common-react-content>
                 }
-                return <done-content show-icon={Boolean(option.icon)}>{option.content}</done-content>
+                return (
+                    <common-react-content
+                        show-icon={Boolean(option.icon)}
+                        v-slots={{ default: () => option.content }}
+                    ></common-react-content>
+                )
             },
             style: {
                 '--n-padding': '20px 24px 24px',

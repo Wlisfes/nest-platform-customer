@@ -41,29 +41,20 @@ export const useManager = defineStore('APP_STORE_MANAGER', () => {
     /**退出登录**/
     async function fetchCommonBaseDiscover() {
         return await fetchDiscover({
-            icon: 'BsMistake',
+            icon: 'warning',
             title: '确定要登出吗？',
             negativeText: '取消',
             positiveText: '确定登出',
             content: `登出后会中断连接、并且无法接收和发送消息。`,
-            onAfterEnter: async () => {
-                // return await divineHandler(Boolean(scope?.onAfterEnter), {
-                //     handler: () => scope!.onAfterEnter!()
-                // })
-            },
             onPositiveClick: async (evt, vm, done) => {
-                await done(true)
-                await utils.fetchDelay(500)
-                return true
-                // return await fetchReset().then(async () => {
-                //     await scope?.onPositiveClick?.()
-                //     await comment.setState({ message: '' })
-                //     await session.setState({ sid: '', dataSource: [], total: 0 })
-                //     await message.setState({ sid: '', dataSource: [], total: 0, limit: 30, distance: 0 })
-                //     return await chat.setState({ current: 'session', loading: true, online: false }).then(() => {
-                //         return true
-                //     })
-                // })
+                return await done(true).then(async () => {
+                    await utils.fetchDelay(500)
+                    await cookie.delCompose()
+                    await setState(initState())
+                    return await router.push({ replace: true, path: '/login' }).then(() => {
+                        return true
+                    })
+                })
             }
         })
     }
