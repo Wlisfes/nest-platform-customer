@@ -21,7 +21,6 @@ export default defineComponent({
 .common-container {
     position: relative;
     background-color: var(--common-body-color);
-    transition: color 0.3s var(--n-bezier), background-color 0.3s var(--n-bezier), box-shadow 0.3s var(--n-bezier),
-        border-color 0.3s var(--n-bezier);
+    transition: background-color 0.3s var(--n-bezier), box-shadow 0.3s var(--n-bezier), border-color 0.3s var(--n-bezier);
 }
 </style>

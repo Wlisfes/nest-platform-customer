@@ -1,6 +1,5 @@
 <script lang="tsx">
 import { defineComponent, computed } from 'vue'
-import { useRoute } from 'vue-router'
 import { useConfiger, useStore } from '@/store'
 
 export default defineComponent({
@@ -10,7 +9,7 @@ export default defineComponent({
 
         return () => (
             <n-layout class="h-full" content-class="flex flex-col overflow-hidden">
-                <n-layout-header class="h-60 p-inline-24 flex items-center gap-24" bordered>
+                <n-layout-header class="h-60 p-inline-24 flex items-center gap-24">
                     <layout-config-logo></layout-config-logo>
                     <layout-config-navigate></layout-config-navigate>
                     <layout-config-user></layout-config-user>
@@ -18,8 +17,7 @@ export default defineComponent({
                 <n-layout class="flex-1" has-sider content-class="flex flex-col overflow-hidden">
                     <n-layout-sider
                         collapse-mode="width"
-                        bordered
-                        width={260}
+                        width={220}
                         native-scrollbar={false}
                         collapsed={collapsed.value}
                         collapsed-width={64}

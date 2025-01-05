@@ -60,8 +60,8 @@ export const useManager = defineStore('APP_STORE_MANAGER', () => {
     }
 
     return {
-        state: computed(() => state),
         ...toRefs(state),
+        state: computed(() => state),
         setState,
         fetchCommonBaseResolver,
         fetchCommonBaseDiscover

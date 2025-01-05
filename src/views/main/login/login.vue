@@ -5,6 +5,7 @@ import { useManager, useStore } from '@/store'
 import { useForm } from '@/hooks/hook-form'
 import { fetchUinitialize } from '@/plugins/modules/fluctuate'
 import { CommonService } from '@/api/instance.service'
+import { fetchNotice } from '@/utils/utils-component'
 import * as cookie from '@/utils/utils-cookie'
 import * as utils from '@/utils/utils-common'
 
@@ -39,6 +40,7 @@ export default defineComponent({
                 }
                 try {
                     return await CommonService.httpCommonTokenAuthorize({
+                        platform: 'client',
                         code: form.value.code,
                         account: form.value.account,
                         password: window.btoa(encodeURIComponent(form.value.password))
@@ -49,7 +51,8 @@ export default defineComponent({
                         })
                     })
                 } catch (err) {
-                    return await codexRef.value!.fetchRefresh(300).then(() => {
+                    return await fetchNotice({ type: 'error', content: err.message }).then(async () => {
+                        await codexRef.value!.fetchRefresh(300)
                         return setState({ loading: false, disabled: false })
                     })
                 }
@@ -67,11 +70,12 @@ export default defineComponent({
                     <n-form
                         class="w-full max-w-375 m-inline-auto select-none p-be-30"
                         size="large"
+                        show-label={false}
                         ref={formRef}
                         model={form.value}
                         rules={state.rules}
                         disabled={state.loading}
-                        show-label={false}
+                        onSubmit={utils.prevent}
                     >
                         <div class="flex items-center justify-center gap-6 p-be-30">
                             <n-icon size={68} color="var(--primary-color)" component={<local-nest-logo />}></n-icon>

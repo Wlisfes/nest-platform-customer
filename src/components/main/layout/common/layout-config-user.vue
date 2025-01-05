@@ -3,7 +3,6 @@ import { defineComponent, Fragment } from 'vue'
 import { useRouter } from 'vue-router'
 import { useManager, useConfiger, useStore } from '@/store'
 import { useState } from '@/hooks/hook-state'
-import { fetchDiscover } from '@/utils/utils-component'
 import * as utils from '@/utils/utils-common'
 
 export default defineComponent({
@@ -62,7 +61,7 @@ export default defineComponent({
                 }}
             >
                 <n-element class="flex flex-col overflow-hidden">
-                    <div class="flex items-center gap-10 p-16 select-none cursor-pointer border-b border-b-solid border-b-[var(--divider-color)]">
+                    <div class="flex items-center gap-10 p-16 select-none cursor-pointer border-b border-b-solid border-divider">
                         <common-image
                             width={44}
                             height={44}
@@ -107,7 +106,7 @@ export default defineComponent({
                             size="large"
                             focusable={false}
                             secondary
-                            render-icon={() => <n-icon size={20} component={<local-nest-exit />}></n-icon>}
+                            render-icon={() => <n-icon size={20} color="var(--error-color)" component={<local-nest-exit />}></n-icon>}
                             onClick={fetchCloseAuthorize}
                         >
                             退出登录
