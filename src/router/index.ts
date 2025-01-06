@@ -2,15 +2,20 @@ import { App } from 'vue'
 import { createRouter, createWebHistory, Router } from 'vue-router'
 import { isEmpty } from 'class-validator'
 import { useManager, useStore } from '@/store'
+import { NameSpace } from '@/interface/instance.resolver'
+import * as mail from '@/router/modules/mail'
+import * as message from '@/router/modules/message'
 import * as cookie from '@/utils/utils-cookie'
 
 /**路由列表配置**/
 export function fetchSetupRouter() {
     return [
+        ...mail.routes,
+        ...message.routes,
         {
             path: '/manager',
             name: 'BaseManager',
-            meta: { title: '工作台', AUTH: 'AUTH', menu: false },
+            meta: { title: '工作台', AUTH: 'AUTH', menu: false, namespace: NameSpace.manager },
             component: () => import('@/views/main/manager/manager.vue')
         }
     ]
@@ -29,7 +34,7 @@ export const router = createRouter({
             path: '/',
             redirect: '/manager',
             name: 'BaseLayout',
-            meta: { title: '昆仑服务平台', AUTH: 'AUTH' },
+            meta: { title: '昆仑服务平台', AUTH: 'AUTH', namespace: NameSpace.manager },
             component: () => import('@/views/main/layout/layout.vue'),
             children: fetchSetupRouter()
         }

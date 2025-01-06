@@ -2,18 +2,20 @@
 import { defineComponent } from 'vue'
 import { useFullscreen } from '@vueuse/core'
 import { useState } from '@/hooks/hook-state'
+import { useConfiger, useStore } from '@/store'
+import { NameSpace } from '@/interface/instance.resolver'
 
 export default defineComponent({
     name: 'LayoutConfigNavigate',
     setup(props, ctx) {
+        const { namespace } = useStore(useConfiger)
         const { isFullscreen, toggle } = useFullscreen()
         const { state } = useState({
             activeName: '/manager',
             menuOptions: [
-                { label: '短信', key: '/manager' },
-                { label: '邮件', key: '/srm' },
-                { label: '语音', key: '/system/basic/simple' },
-                { label: 'Whatsapp', key: '/crm' }
+                { label: '控制台', key: '/manager', namespace: NameSpace.manager },
+                { label: '短信', key: '/message/describe', namespace: NameSpace.message },
+                { label: '邮件', key: '/mail/describe', namespace: NameSpace.mail }
             ]
         })
 
@@ -22,13 +24,18 @@ export default defineComponent({
                 <div class="flex-1">
                     <n-menu
                         mode="horizontal"
-                        key-field="key"
+                        key-field="namespace"
                         responsive
                         options={state.menuOptions}
-                        v-model:value={state.activeName}
-                        render-label={(data: Omix) => <span class="text-16">{data.label}</span>}
+                        v-model:value={namespace.value}
+                        render-label={(data: Omix) => (
+                            <router-link to={data.key}>
+                                <span class="text-16">{data.label}</span>
+                            </router-link>
+                        )}
                     ></n-menu>
                 </div>
+
                 <div class="flex p-6 b-rd-4 cursor-pointer bg-action hover:bg-[var(--button-color-2-hover)]" onClick={toggle}>
                     <n-icon size={20} component={<local-nest-bell />}></n-icon>
                 </div>
