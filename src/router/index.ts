@@ -1,7 +1,7 @@
 import { App } from 'vue'
 import { createRouter, createWebHistory, Router } from 'vue-router'
 import { isEmpty } from 'class-validator'
-import { useManager, useStore } from '@/store'
+import { useManager, useConfiger, useStore } from '@/store'
 import { NameSpace } from '@/interface/instance.resolver'
 import * as mail from '@/router/modules/mail'
 import * as message from '@/router/modules/message'
@@ -50,6 +50,7 @@ export function setupRouter(app: App<Element>, option: Omix<{ interceptor: boole
 
 /**路由守卫**/
 export function setupGuardRouter(router: Router) {
+    const { fetchNextRouter } = useStore(useConfiger)
     const { uid, fetchCommonBaseResolver } = useStore(useManager)
     router.beforeEach(async (to, from, next) => {
         window.$loadingBar.start()
@@ -79,6 +80,7 @@ export function setupGuardRouter(router: Router) {
 
     router.afterEach(async (to, from) => {
         window.$loadingBar.finish()
+        return await fetchNextRouter(to, from)
     })
 }
 

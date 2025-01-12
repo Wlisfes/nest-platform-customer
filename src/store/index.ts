@@ -1,8 +1,9 @@
 import { App } from 'vue'
 import { createPinia, defineStore, storeToRefs } from 'pinia'
+import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
 export { useConfiger } from '@/store/configer'
 export { useManager } from '@/store/manager'
-export const store = createPinia()
+export const store = createPinia().use(piniaPluginPersistedstate)
 
 /**导出解构函数**/
 export function useStore<T extends ReturnType<typeof defineStore>>(useDataStore: T) {

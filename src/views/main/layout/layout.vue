@@ -5,7 +5,7 @@ import { useConfiger, useStore } from '@/store'
 export default defineComponent({
     name: 'BaseLayout',
     setup(props, ctx) {
-        const { collapsed, setState } = useStore(useConfiger)
+        const { collapsed, width, setState } = useStore(useConfiger)
 
         return () => (
             <n-layout class="h-full" content-class="flex flex-col overflow-hidden">
@@ -20,8 +20,8 @@ export default defineComponent({
                         width={240}
                         native-scrollbar={false}
                         collapsed={collapsed.value}
-                        collapsed-width={64}
-                        show-trigger="bar"
+                        collapsed-width={width.value}
+                        show-trigger={width.value === 0 ? false : 'bar'}
                         on-update:collapsed={(value: boolean) => setState({ collapsed: value })}
                     ></n-layout-sider>
                     <n-layout content-class="flex flex-col overflow-hidden">
