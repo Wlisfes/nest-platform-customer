@@ -2,7 +2,8 @@ import axios, { AxiosResponse, InternalAxiosRequestConfig } from 'axios'
 import * as cookie from '@/utils/utils-cookie'
 
 export const request: AxiosRequest = axios.create({
-    timeout: 90000
+    timeout: 90000,
+    headers: { platform: 'client' }
 })
 
 function inizeNotice(response: AxiosResponse) {

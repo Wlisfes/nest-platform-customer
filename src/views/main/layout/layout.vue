@@ -1,12 +1,10 @@
 <script lang="tsx">
 import { defineComponent } from 'vue'
 import { useConfiger, useStore } from '@/store'
-import { useProvider } from '@/hooks/hook-provider'
 
 export default defineComponent({
     name: 'BaseLayout',
     setup(props, ctx) {
-        const { checkWidth } = useProvider()
         const { collapsed, setState } = useStore(useConfiger)
 
         return () => (
@@ -19,7 +17,7 @@ export default defineComponent({
                 <n-layout class="flex-1" has-sider content-class="flex flex-col overflow-hidden">
                     <n-layout-sider
                         collapse-mode="width"
-                        width={checkWidth.value}
+                        width={240}
                         native-scrollbar={false}
                         collapsed={collapsed.value}
                         collapsed-width={64}

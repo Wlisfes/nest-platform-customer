@@ -10,10 +10,6 @@ export interface CustomThemeCommonVars extends Omix<ThemeCommonVars> {
 export function useProvider() {
     const { theme, primaryColor } = useStore(useConfiger)
     const vars = useThemeVars() as ComputedRef<CustomThemeCommonVars>
-    /**菜单宽度**/
-    const checkWidth = computed(() => {
-        return router.currentRoute.value.meta.menu ?? true ? 240 : 0
-    })
 
     /**主题反转**/
     const inverted = computed(() => theme.value === 'dark')
@@ -62,5 +58,5 @@ export function useProvider() {
         Tree: { nodeHeight: '36px' }
     }))
 
-    return { checkWidth, theme, themeStyle, themeOverrides, vars, inverted }
+    return { theme, themeStyle, themeOverrides, vars, inverted }
 }
